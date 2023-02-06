@@ -25,7 +25,7 @@ public class WarnMain extends JavaPlugin {
 
         plugin = this;
         warnData = new WarnData();
-        new Metrics(this, 12345); // TODO: 수정
+        new Metrics(this, 17657); // TODO: 수정
 
         // CONFIG
         config = new Config("config", plugin);
@@ -35,9 +35,6 @@ public class WarnMain extends JavaPlugin {
         // COMMAND
         Bukkit.getPluginCommand("warn").setExecutor(new WarnCmd());
         Bukkit.getPluginCommand("warn").setTabCompleter(new WarnTab());
-
-        // EVENT
-        // TODO: 작성
     }
 
     public static JavaPlugin getPlugin() {
