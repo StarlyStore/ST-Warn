@@ -33,8 +33,18 @@ public class WarnTab implements TabCompleter {
         if (args.length == 3) {
             if (args[0].equals("액션")) {
                 if (player.hasPermission("starly.warn.action")) return Arrays.asList("MESSAGE", "KICK", "BAN", "BAN-IP");
-            } else {
+
+            } else if (args[0].equals("지급") || args[0].equals("차감") || args[0].equals("설정")) {
+                return Collections.singletonList("<경고 횟수>");
+
+            }else {
                 return Collections.emptyList();
+            }
+        }
+
+        if (args.length == 4) {
+            if (args[0].equals("지급") || args[0].equals("차감") || args[0].equals("설정")) {
+                return Collections.singletonList("<사유>");
             }
         }
 

@@ -4,7 +4,6 @@ import net.starly.core.data.Config;
 import net.starly.warn.WarnMain;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 
@@ -16,7 +15,7 @@ public class WarnData {
      * @param target 경고를 지급할 플레이어
      * @param amount 지급할 경고의 양
      */
-    public void add(Player target, int amount) {
+    public void give(Player target, int amount) {
         config.setInt(String.valueOf(target.getUniqueId()), get(target) + amount);
         action(target);
     }
@@ -26,7 +25,7 @@ public class WarnData {
      * @param target 경고를 차감할 플레이어
      * @param amount 차감할 경고의 양
      */
-    public void remove(Player target, int amount) {
+    public void take(Player target, int amount) {
         config.setInt(String.valueOf(target.getUniqueId()), get(target) - amount);
     }
 

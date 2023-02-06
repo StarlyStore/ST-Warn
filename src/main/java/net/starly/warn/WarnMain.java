@@ -40,6 +40,7 @@ public class WarnMain extends JavaPlugin {
     public static JavaPlugin getPlugin() {
         return plugin;
     }
+
     public static WarnData getWarnData() {
         return warnData;
     }

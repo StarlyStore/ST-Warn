@@ -8,6 +8,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static net.starly.warn.WarnMain.config;
 
 public class WarnCmd implements CommandExecutor {
@@ -76,11 +80,6 @@ public class WarnCmd implements CommandExecutor {
                     return true;
                 }
 
-                if (args.length != 3) {
-                    player.sendMessage(config.getMessage("errorMessages.wrongCommand"));
-                    return true;
-                }
-
                 Player target = Bukkit.getPlayer(args[1]);
                 if (target == null) {
                     player.sendMessage(config.getMessage("errorMessages.warn.notFoundPlayer"));
@@ -93,7 +92,12 @@ public class WarnCmd implements CommandExecutor {
                     player.sendMessage(config.getMessage("errorMessages.warn.invalidAmount"));
                     return true;
                 }
+
                 boolean isPublic = config.getBoolean("others.public");
+
+                String reason;
+                if (args.length > 3) reason = String.join(" ", Arrays.copyOfRange(args, 3, args.length));
+                else reason = null;
 
                 switch (args[0]) {
                     case "지급": {
@@ -102,18 +106,17 @@ public class WarnCmd implements CommandExecutor {
                             return true;
                         }
 
-                        if (isPublic) Bukkit.broadcastMessage(config.getMessage("messages.warn.give")
-                                .replace("{player}", target.getName())
-                                .replace("{amount}", String.valueOf(amount)));
+                        List<String> msg = config.getMessages("messages.warn.give")
+                                .stream()
+                                .map(s -> s.replace("{player}", target.getName()).replace("{amount}", String.valueOf(amount)).replace("{reason}", reason == null ? "없음" : reason))
+                                .collect(Collectors.toList());
+
+                        if (isPublic) msg.forEach(Bukkit::broadcastMessage);
                         else {
-                            player.sendMessage(config.getMessage("messages.warn.give")
-                                    .replace("{player}", target.getName())
-                                    .replace("{amount}", String.valueOf(amount)));
-                            target.getPlayer().sendMessage(config.getMessage("messages.warn.give")
-                                    .replace("{player}", target.getName())
-                                    .replace("{amount}", String.valueOf(amount)));
+                            msg.forEach(player::sendMessage);
+                            msg.forEach(target::sendMessage);
                         }
-                        warnData.add(target, amount);
+                        warnData.give(target, amount);
                         return true;
                     }
                     case "차감": {
@@ -122,18 +125,17 @@ public class WarnCmd implements CommandExecutor {
                             return true;
                         }
 
-                        if (isPublic) Bukkit.broadcastMessage(config.getMessage("messages.warn.take")
-                                .replace("{player}", target.getName())
-                                .replace("{amount}", String.valueOf(amount)));
+                        List<String> msg = config.getMessages("messages.warn.take")
+                                .stream()
+                                .map(s -> s.replace("{player}", target.getName()).replace("{amount}", String.valueOf(amount)).replace("{reason}", reason == null ? "없음" : reason))
+                                .collect(Collectors.toList());
+
+                        if (isPublic) msg.forEach(Bukkit::broadcastMessage);
                         else {
-                            player.sendMessage(config.getMessage("messages.warn.take")
-                                    .replace("{player}", target.getName())
-                                    .replace("{amount}", String.valueOf(amount)));
-                            target.getPlayer().sendMessage(config.getMessage("messages.warn.take")
-                                    .replace("{player}", target.getName())
-                                    .replace("{amount}", String.valueOf(amount)));
+                            msg.forEach(player::sendMessage);
+                            msg.forEach(target::sendMessage);
                         }
-                        warnData.remove(target, amount);
+                        warnData.take(target, amount);
                         return true;
                     }
                     case "설정": {
@@ -142,16 +144,15 @@ public class WarnCmd implements CommandExecutor {
                             return true;
                         }
 
-                        if (isPublic) Bukkit.broadcastMessage(config.getMessage("messages.warn.set")
-                                .replace("{player}", target.getName())
-                                .replace("{amount}", String.valueOf(amount)));
+                        List<String> msg = config.getMessages("messages.warn.set")
+                                .stream()
+                                .map(s -> s.replace("{player}", target.getName()).replace("{amount}", String.valueOf(amount)).replace("{reason}", reason == null ? "없음" : reason))
+                                .collect(Collectors.toList());
+
+                        if (isPublic) msg.forEach(Bukkit::broadcastMessage);
                         else {
-                            player.sendMessage(config.getMessage("messages.warn.set")
-                                    .replace("{player}", target.getName())
-                                    .replace("{amount}", String.valueOf(amount)));
-                            target.getPlayer().sendMessage(config.getMessage("messages.warn.set")
-                                    .replace("{player}", target.getName())
-                                    .replace("{amount}", String.valueOf(amount)));
+                            msg.forEach(player::sendMessage);
+                            msg.forEach(target::sendMessage);
                         }
                         warnData.set(target, amount);
                         return true;
