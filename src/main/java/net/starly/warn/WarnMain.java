@@ -3,14 +3,13 @@ package net.starly.warn;
 import net.starly.core.bstats.Metrics;
 import net.starly.core.data.Config;
 import net.starly.warn.command.WarnCmd;
-import net.starly.warn.command.tabcompleter.WarnTab;
-import net.starly.warn.data.WarnData;
+import net.starly.warn.command.tabcomplete.WarnTab;
+import net.starly.warn.data.PlayerWarnData;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class WarnMain extends JavaPlugin {
     private static JavaPlugin plugin;
-    private static WarnData warnData;
     public static Config config;
 
     @Override
@@ -24,8 +23,7 @@ public class WarnMain extends JavaPlugin {
         }
 
         plugin = this;
-        warnData = new WarnData();
-        new Metrics(this, 17657); // TODO: 수정
+        new Metrics(this, 17657);
 
         // CONFIG
         config = new Config("config", plugin);
@@ -33,15 +31,12 @@ public class WarnMain extends JavaPlugin {
         config.setPrefix("messages.prefix");
 
         // COMMAND
-        Bukkit.getPluginCommand("warn").setExecutor(new WarnCmd());
-        Bukkit.getPluginCommand("warn").setTabCompleter(new WarnTab());
+        Bukkit.getPluginCommand("warning").setExecutor(new WarnCmd());
+        Bukkit.getPluginCommand("warning").setTabCompleter(new WarnTab());
     }
 
     public static JavaPlugin getPlugin() {
         return plugin;
     }
 
-    public static WarnData getWarnData() {
-        return warnData;
-    }
 }

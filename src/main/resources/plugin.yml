@@ -12,5 +12,6 @@ version: 1.0
 api-version: 1.13
 
 commands:
-  warn:
-    aliases: ["경고"]
+  warning:
+    description: 경고 명령어
+    aliases: [ "warn", "경고", "처벌" ]

@@ -80,7 +80,7 @@ others:
     4: KICK
     5: BAN
 
-  actions_value:
+  actionValue:
       message: "&c당신은 관리자로부터 경고를 받았습니다. 주의하세요."
       kick: "&c당신은 경고 누적으로 인해 서버에서 추방되었습니다. 주의하세요."
       ban: "&c당신은 경고 누적으로 인해 서버에서 차단되었습니다."  
