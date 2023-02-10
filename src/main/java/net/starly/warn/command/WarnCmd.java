@@ -56,7 +56,7 @@ public class WarnCmd implements CommandExecutor {
 
 
                     OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
-                    if (target.getPlayer() == null) {
+                    if (!(target.hasPlayedBefore() || target.isOnline())) {
                         player.sendMessage(config.getMessage("errorMessages.warn.notFoundPlayer"));
                         return true;
                     }
@@ -86,7 +86,7 @@ public class WarnCmd implements CommandExecutor {
 
 
                 OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
-                if (target.getPlayer() == null) {
+                if (!(target.hasPlayedBefore() || target.isOnline())) {
                     player.sendMessage(config.getMessage("errorMessages.warn.notFoundPlayer"));
                     return true;
                 }
