@@ -71,7 +71,7 @@ public class WarnCmd implements CommandExecutor {
                 return true;
             }
 
-            case "지급":
+            case "추가":
             case "차감":
             case "설정": {
                 if (args.length == 1) {
@@ -108,7 +108,7 @@ public class WarnCmd implements CommandExecutor {
 
 
                 switch (args[0]) {
-                    case "지급": {
+                    case "추가": {
                         if (!player.hasPermission("starly.warn.give")) {
                             player.sendMessage(config.getMessage("errorMessages.noPermission"));
                             return true;
