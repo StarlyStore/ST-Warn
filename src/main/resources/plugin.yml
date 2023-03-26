@@ -8,10 +8,10 @@ description: Warn Plugin.
 softdepend:
   - ST-Core
 
-version: 1.0
+version: 1.0_Alpha
 api-version: 1.13
 
 commands:
-  warning:
+  warn:
     description: 경고 명령어
-    aliases: [ "warn", "경고", "처벌" ]
+    aliases: ["경고"]

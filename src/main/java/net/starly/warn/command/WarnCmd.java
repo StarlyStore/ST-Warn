@@ -45,9 +45,9 @@ public class WarnCmd implements CommandExecutor {
                         player.sendMessage(config.getMessage("errorMessages.noPermission"));
                         return true;
                     }
+                //
 
-
-                    player.sendMessage(config.getMessage("messages.warn.check").replace("{player}", player.getDisplayName()).replace("{amount}", new PlayerWarnData(player) + ""));
+                    player.sendMessage(config.getMessage("messages.warn.check").replace("{player}", player.getDisplayName()).replace("{amount}", new PlayerWarnData(player).getWarn() + ""));
                 } else if (args.length == 2) {
                     if (!player.hasPermission("starly.warn.check.self")) {
                         player.sendMessage(config.getMessage("errorMessages.noPermission"));
@@ -56,13 +56,13 @@ public class WarnCmd implements CommandExecutor {
 
 
                     OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
-                    if (!target.hasPlayedBefore()) {
+                    if (!(target.hasPlayedBefore() || target.isOnline())) {
                         player.sendMessage(config.getMessage("errorMessages.warn.notFoundPlayer"));
                         return true;
                     }
 
 
-                    player.sendMessage(config.getMessage("messages.warn.check").replace("{player}", target.getName()).replace("{amount}", new PlayerWarnData(target) + ""));
+                    player.sendMessage(config.getMessage("messages.warn.check").replace("{player}", target.getName()).replace("{amount}", new PlayerWarnData(target).getWarn() + ""));
                 } else {
                     player.sendMessage(config.getMessage("errorMessages.wrongCommand"));
                     return true;
@@ -71,7 +71,7 @@ public class WarnCmd implements CommandExecutor {
                 return true;
             }
 
-            case "지급":
+            case "추가":
             case "차감":
             case "설정": {
                 if (args.length == 1) {
@@ -86,7 +86,7 @@ public class WarnCmd implements CommandExecutor {
 
 
                 OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
-                if (!target.hasPlayedBefore()) {
+                if (!(target.hasPlayedBefore() || target.isOnline())) {
                     player.sendMessage(config.getMessage("errorMessages.warn.notFoundPlayer"));
                     return true;
                 }
@@ -108,7 +108,7 @@ public class WarnCmd implements CommandExecutor {
 
 
                 switch (args[0]) {
-                    case "지급": {
+                    case "추가": {
                         if (!player.hasPermission("starly.warn.give")) {
                             player.sendMessage(config.getMessage("errorMessages.noPermission"));
                             return true;
@@ -133,6 +133,11 @@ public class WarnCmd implements CommandExecutor {
                             return true;
                         }
 
+                        PlayerWarnData warnData = new PlayerWarnData(target);
+                        if(warnData.getWarn() - amount < 0) {
+                            player.sendMessage(config.getMessage("errorMessages.warn.underFlow"));
+                            return true;
+                        }
 
                         List<String> msg = config.getMessages("messages.warn.take").stream().map(s -> s.replace("{player}", target.getName()).replace("{amount}", amount + "").replace("{reason}", reason == null ? "없음" : reason)).collect(Collectors.toList());
                         if (isPublic) msg.forEach(Bukkit::broadcastMessage);
@@ -142,7 +147,7 @@ public class WarnCmd implements CommandExecutor {
                         }
 
 
-                        new PlayerWarnData(target).removeWarn(amount);
+                        warnData.removeWarn(amount);
                         return true;
                     }
 
@@ -152,6 +157,10 @@ public class WarnCmd implements CommandExecutor {
                             return true;
                         }
 
+                        if (amount < 0) {
+                            player.sendMessage(config.getMessage("errorMessages.warn.underFlow"));
+                            return true;
+                        }
 
                         List<String> msg = config.getMessages("messages.warn.set").stream().map(s -> s.replace("{player}", target.getName()).replace("{amount}", amount + "").replace("{reason}", reason == null ? "없음" : reason)).collect(Collectors.toList());
                         if (isPublic) msg.forEach(Bukkit::broadcastMessage);
@@ -189,7 +198,7 @@ public class WarnCmd implements CommandExecutor {
                     return true;
                 }
 
-                if (Arrays.asList("kick", "ban", "message", "ban-ip").contains(args[2].toLowerCase())) {
+                if (!Arrays.asList("kick", "ban", "message", "ban-ip").contains(args[2].toLowerCase())) {
                     player.sendMessage(config.getMessage("errorMessages.warn.invalidAction"));
                     return true;
                 }

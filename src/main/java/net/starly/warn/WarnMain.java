@@ -31,8 +31,8 @@ public class WarnMain extends JavaPlugin {
         config.setPrefix("messages.prefix");
 
         // COMMAND
-        Bukkit.getPluginCommand("warning").setExecutor(new WarnCmd());
-        Bukkit.getPluginCommand("warning").setTabCompleter(new WarnTab());
+        Bukkit.getPluginCommand("warn").setExecutor(new WarnCmd());
+        Bukkit.getPluginCommand("warn").setTabCompleter(new WarnTab());
     }
 
     public static JavaPlugin getPlugin() {
