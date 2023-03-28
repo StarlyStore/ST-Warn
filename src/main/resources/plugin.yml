@@ -8,7 +8,7 @@ description: Warn Plugin.
 softdepend:
   - ST-Core
 
-version: 1.0_Alpha
+version: 1.0
 api-version: 1.13
 
 commands:
