@@ -45,7 +45,7 @@ public class WarnCmd implements CommandExecutor {
                         player.sendMessage(config.getMessage("errorMessages.noPermission"));
                         return true;
                     }
-                //
+                    //
 
                     player.sendMessage(config.getMessage("messages.warn.check").replace("{player}", player.getDisplayName()).replace("{amount}", new PlayerWarnData(player).getWarn() + ""));
                 } else if (args.length == 2) {
@@ -134,7 +134,7 @@ public class WarnCmd implements CommandExecutor {
                         }
 
                         PlayerWarnData warnData = new PlayerWarnData(target);
-                        if(warnData.getWarn() - amount < 0) {
+                        if (warnData.getWarn() - amount < 0) {
                             player.sendMessage(config.getMessage("errorMessages.warn.underFlow"));
                             return true;
                         }

@@ -4,7 +4,6 @@ import net.starly.core.bstats.Metrics;
 import net.starly.core.data.Config;
 import net.starly.warn.command.WarnCmd;
 import net.starly.warn.command.tabcomplete.WarnTab;
-import net.starly.warn.data.PlayerWarnData;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
