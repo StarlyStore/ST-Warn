@@ -14,10 +14,10 @@ public class WarnMain extends JavaPlugin {
     @Override
     public void onEnable() {
         // DEPENDENCY
-        if (Bukkit.getPluginManager().getPlugin("ST-Core") == null) {
-            Bukkit.getLogger().warning("[" + getName() + "] ST-Core 플러그인이 적용되지 않았습니다! 플러그인을 비활성화합니다.");
-            Bukkit.getLogger().warning("[" + getName() + "] 다운로드 링크 : §fhttp://starly.kr/discord");
-            Bukkit.getPluginManager().disablePlugin(this);
+        if (!isPluginEnabled("net.starly.core.StarlyCore")) {
+            getServer().getLogger().warning("[" + getName() + "] ST-Core 플러그인이 적용되지 않았습니다! 플러그인을 비활성화합니다.");
+            getServer().getLogger().warning("[" + getName() + "] 다운로드 링크 : §fhttp://starly.kr/");
+            getServer().getPluginManager().disablePlugin(this);
             return;
         }
 
@@ -30,12 +30,21 @@ public class WarnMain extends JavaPlugin {
         config.setPrefix("messages.prefix");
 
         // COMMAND
-        Bukkit.getPluginCommand("warn").setExecutor(new WarnCmd());
-        Bukkit.getPluginCommand("warn").setTabCompleter(new WarnTab());
+        getServer().getPluginCommand("warning").setExecutor(new WarnCmd());
+        getServer().getPluginCommand("warning").setTabCompleter(new WarnTab());
     }
 
     public static JavaPlugin getPlugin() {
         return plugin;
+    }
+
+    private boolean isPluginEnabled(String path) {
+        try {
+            Class.forName(path);
+            return true;
+        } catch (NoClassDefFoundError ignored) {
+        } catch (Exception ex) { ex.printStackTrace(); }
+        return false;
     }
 
 }
