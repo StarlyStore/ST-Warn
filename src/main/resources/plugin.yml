@@ -1,17 +1,17 @@
 name: ST-Warn
 main: net.starly.warn.WarnMain
 author: Starly Team
-website: http://starly.kr/discord
+website: http://starly.kr/
 
-description: Warn Plugin.
+description: Warning Plugin.
 
 softdepend:
   - ST-Core
 
-version: 1.0
+version: 1.0.1
 api-version: 1.13
 
 commands:
-  warn:
+  warning:
     description: 경고 명령어
-    aliases: [ "경고" ]
+    aliases: [ warn, 경고 ]
