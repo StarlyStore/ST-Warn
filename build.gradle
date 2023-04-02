@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'net.starly.warn'
-version '1.0'
+version '1.0.1'
 
 repositories {
     mavenCentral()
@@ -21,9 +21,9 @@ dependencies {
     compileOnly "org.spigotmc:spigot-api:R0.1:1.12.2"
 
     // OTHER DEPENDENCIES
-    compileOnly "net.starly.core:ST-Core:1.6"
+    compileOnly "net.starly.core:ST-Core:1.6.12"
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
