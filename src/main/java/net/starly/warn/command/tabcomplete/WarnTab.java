@@ -17,7 +17,7 @@ public class WarnTab implements TabCompleter {
         List<String> completions = new ArrayList<>();
 
         if (args.length == 1) {
-            if (player.hasPermission("starly.warn.give")) completions.add("지급");
+            if (player.hasPermission("starly.warn.add")) completions.add("추가");
             if (player.hasPermission("starly.warn.action")) completions.add("액션");
             if (player.hasPermission("starly.warn.take")) completions.add("차감");
             if (player.hasPermission("starly.warn.set")) completions.add("설정");
@@ -26,8 +26,8 @@ public class WarnTab implements TabCompleter {
             if (args[0].equals("액션")) {
                 if (player.hasPermission("starly.warn.action"))
                     completions.addAll(Arrays.asList("1", "2", "3", "4", "5"));
-            } else if (Arrays.asList("지급", "차감", "설정").contains(args[0])) {
-                if (player.hasPermission("starly.warn.give") || player.hasPermission("starly.warn.take") || player.hasPermission("starly.warn.set"))
+            } else if (Arrays.asList("추가", "차감", "설정").contains(args[0])) {
+                if (player.hasPermission("starly.warn.add") || player.hasPermission("starly.warn.take") || player.hasPermission("starly.warn.set"))
                     completions = null;
             }
         } else if (args.length == 3) {
@@ -35,7 +35,7 @@ public class WarnTab implements TabCompleter {
                 if (player.hasPermission("starly.warn.action"))
                     completions.addAll(Arrays.asList("MESSAGE", "KICK", "BAN", "BAN-IP"));
             } else if (Arrays.asList("지급", "차감", "설정").contains(args[0])) {
-                completions.add("<경고 횟수>");
+                completions.add("<횟수>");
             }
         } else if (args.length == 4) {
             if (args[0].equals("지급") || args[0].equals("차감") || args[0].equals("설정")) {

@@ -109,12 +109,12 @@ public class WarnCmd implements CommandExecutor {
 
                 switch (args[0]) {
                     case "추가": {
-                        if (!player.hasPermission("starly.warn.give")) {
+                        if (!player.hasPermission("starly.warn.add")) {
                             player.sendMessage(config.getMessage("errorMessages.noPermission"));
                             return true;
                         }
 
-                        List<String> msg = config.getMessages("messages.warn.give").stream().map(s -> s.replace("{player}", target.getName()).replace("{amount}", amount + "").replace("{reason}", reason == null ? "없음" : reason)).collect(Collectors.toList());
+                        List<String> msg = config.getMessages("messages.warn.add").stream().map(s -> s.replace("{player}", target.getName()).replace("{amount}", amount + "").replace("{reason}", reason == null ? "없음" : reason)).collect(Collectors.toList());
                         if (isPublic) {
                             msg.forEach(Bukkit::broadcastMessage);
                         } else {
