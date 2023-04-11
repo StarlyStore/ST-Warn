@@ -18,24 +18,38 @@ public class ActionUtil {
 
         if (action.equalsIgnoreCase("message")) {
             if (target.isOnline()) {
-                target.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', config.getString("others.actionValue.message")));
+                target.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', config.getString("others.actionValue.message")
+                        .replace("{player}", target.getName())
+                        .replace("{uuid}", String.valueOf(target.getUniqueId()))
+                        .replace("{amount}", String.valueOf(amount))));
             }
         } else if (action.equalsIgnoreCase("kick")) {
             if (target.isOnline()) {
-                target.getPlayer().kickPlayer(ChatColor.translateAlternateColorCodes('&', config.getString("others.actionValue.kick")));
+                target.getPlayer().kickPlayer(ChatColor.translateAlternateColorCodes('&', config.getString("others.actionValue.kick")
+                        .replace("{player}", target.getName())
+                        .replace("{uuid}", String.valueOf(target.getUniqueId()))
+                        .replace("{amount}", String.valueOf(amount))));
             }
         } else if (action.equalsIgnoreCase("ban")) {
-            if (target.isOnline()) {
-                target.getPlayer().kickPlayer(ChatColor.translateAlternateColorCodes('&', config.getString("others.actionValue.ban")));
-            }
+            String msg = ChatColor.translateAlternateColorCodes('&', WarnMain.config.getString("others.actionValue.ban")
+                    .replace("{player}", target.getName())
+                    .replace("{uuid}", String.valueOf(target.getUniqueId()))
+                    .replace("{amount}", String.valueOf(amount)));
 
-            Bukkit.getBanList(BanList.Type.NAME).addBan(target.getName(), ChatColor.translateAlternateColorCodes('&', WarnMain.config.getString("others.actionValue.ban")), null, null);
+            if (target.isOnline()) target.getPlayer().kickPlayer(msg);
+
+            Bukkit.getBanList(BanList.Type.NAME).addBan(target.getName(), msg, null, null);
         } else if (action.equalsIgnoreCase("ban-ip")) {
+            String msg = ChatColor.translateAlternateColorCodes('&', config.getString("others.actionValue.ban-ip")
+                    .replace("{player}", target.getName())
+                    .replace("{uuid}", String.valueOf(target.getUniqueId()))
+                    .replace("{amount}", String.valueOf(amount)));
+
             if (target.isOnline()) {
-                target.getPlayer().kickPlayer(ChatColor.translateAlternateColorCodes('&', config.getString("others.actionValue.ban-ip")));
+                target.getPlayer().kickPlayer(msg);
             }
 
-            Bukkit.getBanList(BanList.Type.IP).addBan(target.getPlayer().getAddress().getHostName(), ChatColor.translateAlternateColorCodes('&', config.getString("others.actionValue.ban-ip")), null, null);
+            Bukkit.getBanList(BanList.Type.IP).addBan(target.getPlayer().getAddress().getHostName(), msg, null, null);
         }
     }
 }

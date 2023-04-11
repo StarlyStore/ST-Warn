@@ -114,7 +114,14 @@ public class WarnCmd implements CommandExecutor {
                             return true;
                         }
 
-                        List<String> msg = config.getMessages("messages.warn.add").stream().map(s -> s.replace("{player}", target.getName()).replace("{amount}", amount + "").replace("{reason}", reason == null ? "없음" : reason)).collect(Collectors.toList());
+                        List<String> msg = config.getMessages("messages.warn.add")
+                                .stream()
+                                .map(s -> s
+                                        .replace("{player}", target.getName())
+                                        .replace("{uuid}", String.valueOf(target.getUniqueId()))
+                                        .replace("{amount}", String.valueOf(amount))
+                                        .replace("{reason}", reason == null ? "없음" : reason))
+                                .collect(Collectors.toList());
                         if (isPublic) {
                             msg.forEach(Bukkit::broadcastMessage);
                         } else {
@@ -139,7 +146,14 @@ public class WarnCmd implements CommandExecutor {
                             return true;
                         }
 
-                        List<String> msg = config.getMessages("messages.warn.take").stream().map(s -> s.replace("{player}", target.getName()).replace("{amount}", amount + "").replace("{reason}", reason == null ? "없음" : reason)).collect(Collectors.toList());
+                        List<String> msg = config.getMessages("messages.warn.take")
+                                .stream()
+                                .map(s -> s
+                                        .replace("{player}", target.getName())
+                                        .replace("{uuid}", String.valueOf(target.getUniqueId()))
+                                        .replace("{amount}", String.valueOf(amount))
+                                        .replace("{reason}", reason == null ? "없음" : reason))
+                                .collect(Collectors.toList());
                         if (isPublic) msg.forEach(Bukkit::broadcastMessage);
                         else {
                             msg.forEach(player::sendMessage);
@@ -162,7 +176,14 @@ public class WarnCmd implements CommandExecutor {
                             return true;
                         }
 
-                        List<String> msg = config.getMessages("messages.warn.set").stream().map(s -> s.replace("{player}", target.getName()).replace("{amount}", amount + "").replace("{reason}", reason == null ? "없음" : reason)).collect(Collectors.toList());
+                        List<String> msg = config.getMessages("messages.warn.set")
+                                .stream()
+                                .map(s -> s
+                                        .replace("{player}", target.getName())
+                                        .replace("{uuid}", String.valueOf(target.getUniqueId()))
+                                        .replace("{amount}", String.valueOf(amount))
+                                        .replace("{reason}", reason == null ? "없음" : reason))
+                                .collect(Collectors.toList());
                         if (isPublic) msg.forEach(Bukkit::broadcastMessage);
                         else {
                             msg.forEach(player::sendMessage);

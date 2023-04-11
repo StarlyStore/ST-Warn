@@ -18,19 +18,34 @@ messages:
       - "/경고 액션 <횟수> <액션> : 경고 횟수에 따른 액션을 설정합니다."
 
     # 경고 확인 명령어 사용 시 출력 되는 메세지
+    # {player} : 플레이어 이름
+    # {uuid} : 플레이어 UUID
+    # {amount} : 경고 횟수
     check: "{player} 님의 경고 횟수는 {amount}회 입니다."
 
     # 경고 지급 명령어 사용 시 출력 되는 메세지
+    # {player} : 플레이어 이름
+    # {uuid} : 플레이어 UUID
+    # {amount} : 경고 횟수
+    # {reason} : 사유
     add:
       - "관리자가 {player} 에게 경고 {amount} 을/를 추가했습니다."
       - "사유 : {reason}"
 
     # 경고 차감 명령어 사용 시 출력 되는 메세지
+    # {player} : 플레이어 이름
+    # {uuid} : 플레이어 UUID
+    # {amount} : 경고 횟수
+    # {reason} : 사유
     take:
       - "관리자가 {player} 의 경고 {amount} 을/를 차감했습니다."
       - "사유 : {reason}"
 
     # 경고 설정 명령어 사용 시 출력되는 메세지
+    # {player} : 플레이어 이름
+    # {uuid} : 플레이어 UUID
+    # {amount} : 경고 횟수
+    # {reason} : 사유
     set:
       - "관리자가 {player} 의 경고를 {amount} (으)로 설정했습니다."
       - "사유 : {reason}"
@@ -84,8 +99,23 @@ others:
     5: BAN
 
   actionValue:
+      # {player} : 플레이어 이름
+      # {uuid} : 플레이어 UUID
+      # {amount} : 경고 횟수
       message: "&c당신은 관리자로부터 경고를 받았습니다. 주의하세요."
+
+      # {player} : 플레이어 이름
+      # {uuid} : 플레이어 UUID
+      # {amount} : 경고 횟수
       kick: "&c당신은 경고 누적으로 인해 서버에서 추방되었습니다. 주의하세요."
-      ban: "&c당신은 경고 누적으로 인해 서버에서 차단되었습니다."  
+
+      # {player} : 플레이어 이름
+      # {uuid} : 플레이어 UUID
+      # {amount} : 경고 횟수
+      ban: "&c당신은 경고 누적으로 인해 서버에서 차단되었습니다."
+
+      # {player} : 플레이어 이름
+      # {uuid} : 플레이어 UUID
+      # {amount} : 경고 횟수
       ban-ip: "&c당신은 경고 누적으로 인해 서버에서 차단되었습니다."
   
